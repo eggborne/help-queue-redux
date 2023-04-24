@@ -1,13 +1,19 @@
 import React from "react";
-import Header from "./Header";
-import TicketControl from "./TicketControl";
+import WordGameControl from "./WordGameControl";
 
 function App(){
+  const mainStyle = {
+    minHeight: 'var(--actual-height)',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: 'plum',
+  }
   return (
-    <React.Fragment>
-      <Header />
-      <TicketControl />
-    </React.Fragment>
+    <main style={mainStyle}>
+      <WordGameControl />
+    </main>
   );
 }
 

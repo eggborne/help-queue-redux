@@ -1,5 +1,20 @@
+:root {
+  --header-height: 4rem;
+  --header-bg-color: rgb(103, 33, 10);
+  --header-text-color: rgba(255, 255, 255, 0.75);
+  --body-bg-color: rgb(18, 42, 1);
+  --body-text-color: rgba(255, 255, 255, 0.75);
+  --main-width: 100%;
+}
+
+*, * *, * * *, * * * * {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
+  background-color: var(--body-bg-color);
+  color: var(--body-text-color);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -7,7 +22,101 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+button, input {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0.75rem;
+}
+
+button.green {
+  background: darkgreen;
+  color: #ddd;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+}
+
+main > * {
+  width: var(--main-width);
+}
+
+.letter-guess-input {
+  padding: 1rem;
+  width: 4rem;
+  height: 3rem;
+  font-size: 2rem;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.player-form-area, form.player-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form.player-form {
+  margin: 1rem;
+}
+
+form.player-form input {
+  padding: 1rem;
+}
+
+.player-list {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.player-list + button {
+  margin-top: 1rem;
+}
+
+.player-listing {
+  position: relative;
+  background-color: #00000022;
+  padding: 0.5rem;
+  border: 0.1rem solid #00000033;
+  border-radius: 0.5rem;
+  max-width: calc(var(--main-width) / 3.5);
+}
+
+.player-name {
+  font-size: 150%;
+  font-weight: bold;
+}
+
+.id-tag {
+  font-size: 65%;
+  opacity: 0.5;
+}
+
+.letter-list-item {
+  margin: 0.25rem;
+}
+
+.close-button {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  :root {
+    --main-width: 60vw;
+  }
 }
