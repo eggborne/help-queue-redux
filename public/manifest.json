@@ -1,6 +1,6 @@
 {
-  "short_name": "Redux Word Game",
-  "name": "REdux Word Game",
+  "short_name": "Word Game",
+  "name": "Word Game",
   "icons": [
     {
       "src": "favicon.ico",

@@ -14,7 +14,7 @@ function Header(props) {
   return (
     <React.Fragment>
       <header style={headerStyle}>
-        <h1>Redux Word Game</h1>
+        <h1><span style={{textDecoration: 'line-through'}}>Redux</span> Word Game</h1>
         <button onClick={props.onClickStartGame} className='green'>Start Game</button>
       </header>
     </React.Fragment>

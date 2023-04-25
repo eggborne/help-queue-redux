@@ -10,6 +10,7 @@ function WordArea(props){
     justifyContent: 'center',
     padding: '0.5rem',
     flexGrow: '1',
+    minHeight: '10rem',
   };
   const lettersArray = props.currentPuzzleWord.split('');
   return (

@@ -26,7 +26,6 @@ function PlayerArea(props){
       playerNumber: props.playerList.length + 1,
       id: v4(),
     };
-    console.log(newPlayer)
     props.onAddPlayerFormSubmit(newPlayer);
     setNewPlayerFormShowing(false);
   }
@@ -35,24 +34,24 @@ function PlayerArea(props){
     <React.Fragment>
       <div style={playerAreaStyle}>
         {newPlayerFormShowing ?
-        <>
+        <div className='player-form-area'>
         <form onSubmit={handleFormSubmit} className='player-form'>
           <div className='form-row'>
-            <label for='name'>Name:</label>
-            <input name='name' type='text' maxLength='16' />
+            <input name='name' type='text' placeholder='Enter name' maxLength='18' />
           </div>
-          <button type='submit'>Save</button>
+          <button className='green' type='submit'>Save</button>
         </form>
         <button onClick={() => setNewPlayerFormShowing(false)}>Cancel</button>
-        </>
+        </div>
         :
         <>
           <div className='player-list'>
             {props.playerList.map(player =>
-              <div className='player-listing'>
+              <div key={player.id} className='player-listing'>
                 <div className='player-name'>{player.name}</div>
                 <div>Player {player.playerNumber}</div>
                 <div className='id-tag'>{player.id}</div>
+                <div onClick={() => props.onClickDeletePlayer(player.id)} className='close-button'>X</div>
               </div>
             )}
           </div>
@@ -68,6 +67,7 @@ function PlayerArea(props){
 PlayerArea.propTypes = {
   playerList: PropTypes.array,
   onAddPlayerFormSubmit: PropTypes.func,
+  onClickDeletePlayer: PropTypes.func,
 };
 
 export default PlayerArea;

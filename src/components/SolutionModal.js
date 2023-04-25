@@ -9,7 +9,7 @@ function SolutionModal(props) {
     translate: '-50% -50%',
     width: '28rem',
     height: '24rem',
-    backgroundColor: 'darksalmon',
+    backgroundColor: 'rgb(71, 37, 13)',
     border: '0.25rem solid #00000033',
     borderRadius: '1rem',
     display: 'flex',
@@ -23,8 +23,6 @@ function SolutionModal(props) {
     scale: '0.9',
     transition: 'all 200ms ease',
   }
-
-  console.log('showing', props.showing)
 
   return (
     <div style={solutionModalStyle} className={`modal${props.showing ? ' showing' : ''}`} >

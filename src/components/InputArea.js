@@ -4,14 +4,18 @@ import PropTypes from "prop-types";
 
 
 function InputArea(props){
-
+  
   const [solutionModalShowing, setSolutionModalShowing] = useState(false);
+  
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
   const inputAreaStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     height: '18rem',
+    justifyContent: 'space-between',
+    gap: '1rem',
     padding: '1rem',
     border: '0.25rem solid black',
     backgroundColor: '#00440033',
@@ -37,22 +41,28 @@ function InputArea(props){
     <React.Fragment>
       <div style={inputAreaStyle}>
         <div className='guessed-letter-area'>
-          <h3>Guessed letters:</h3>
           <div className='guessed-letter-list'>
-            {props.guessedLetters.map((letter, l) =>
-              <div key={l} className='guessed-letter'>{letter}</div>
+            {alphabet.map((letter, l) => 
+              <div key={l} className={`guessed-letter${props.guessedLetters.includes(letter) ? ' guessed' : ''}`}>{letter}</div>
             )}
           </div>
           <div className='letter-guess-area'>
             <form onSubmit={handleFormSubmit}>
               <label for='letter-guess'>Guess a letter:</label>
-              <input pattern="[A-Za-z]{1}" type='text' name='letter-guess' maxLength='1' className='letter-guess-input' />
+              <input 
+                pattern="[A-Za-z]{1}"
+                title="You must guess a LETTER (A-Z)"
+                type='text' 
+                name='letter-guess' 
+                maxLength='1' 
+                className='letter-guess-input' 
+              />
               <button id='guess-button' type='submit'>Guess</button>
             </form>
           </div>
         </div>
         <div className='solution-guess-area'>
-          Or <button className='green' onClick={() => handleCallSolutionModal()}>Guess solution...</button>
+          <button className='green' onClick={() => handleCallSolutionModal()}>Solve puzzle</button>
         </div>
         <SolutionModal showing={solutionModalShowing} onClickCancel={() => handleCallSolutionModal(false)}/>
       </div>
@@ -68,9 +78,3 @@ InputArea.propTypes = {
 };
 
 export default InputArea;
-
-/*
-{
-  showing: true
-}
-*/

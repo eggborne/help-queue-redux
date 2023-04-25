@@ -12,8 +12,14 @@ function WordGameControl(props) {
   const [currentPuzzleWord, setCurrentPuzzleWord] = useState('guacamole');
   const [guessedLetters, setGuessedLetters] = useState([]);
 
-  function handleDeletingPlayer(id) {
+  function getIndexById(id, arr = playerList) {
+    const idItem = arr.filter(item => item.id === id)[0];
+    return arr.indexOf(idItem);
+  }
 
+  function handleDeletingPlayer(id) {
+    const newPlayerList = [...playerList];
+    newPlayerList.splice(getIndexById(id), 1);
   }
 
   function handleClickCancelAddPlayer() {
@@ -55,6 +61,7 @@ function WordGameControl(props) {
         activePlayer={activePlayer}
         playerList={playerList}
         onAddPlayerFormSubmit={handleAddingNewPlayer}
+        onClickDeletePlayer={handleDeletingPlayer}
       />
     </React.Fragment>
   );
