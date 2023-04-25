@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-function Header() {
+function Header(props) {
   const headerStyle = {
     backgroundColor: 'var(--header-bg-color)',
     color: 'var(--header-text-color)',
@@ -14,10 +15,14 @@ function Header() {
     <React.Fragment>
       <header style={headerStyle}>
         <h1>Redux Word Game</h1>
-        <button className='green'>Start Game</button>
+        <button onClick={props.onClickStartGame} className='green'>Start Game</button>
       </header>
     </React.Fragment>
   );
+}
+
+Header.propTypes = {
+  onClickStartGame: PropTypes.func,
 }
 
 export default Header;

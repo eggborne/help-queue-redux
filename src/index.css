@@ -28,6 +28,10 @@ button, input {
   padding: 0.75rem;
 }
 
+form button {
+  padding: 0.5rem;
+}
+
 button.green {
   background: darkgreen;
   color: #ddd;
@@ -41,10 +45,23 @@ main > * {
   width: var(--main-width);
 }
 
+.letter-guess-area {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.letter-guess-area > form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .letter-guess-input {
   padding: 1rem;
   width: 4rem;
-  height: 3rem;
+  height: 3.5rem;
   font-size: 2rem;
   text-align: center;
   text-transform: capitalize;
@@ -113,6 +130,53 @@ form.player-form input {
   color: white;
   font-weight: bold;
   font-size: 1.5rem;
+}
+
+.puzzle-letter-area {
+  display: flex;
+}
+
+.puzzle-letter {
+  font-size: 2rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.guessed-letter-area, .solution-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.guessed-letter-list {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 3rem;
+  align-self: stretch;
+  border: 0.1rem solid #00000022;
+  border-radius: 0.25rem;
+}
+
+.guessed-letter {
+  text-transform: capitalize;
+  font-weight: bold;
+  margin: 0.25rem;
+}
+
+.solution-guess-area {
+  margin: 1rem;
+}
+
+.modal.showing {
+  opacity: 1 !important;
+  pointer-events: all !important;
+  scale: 1 !important;
 }
 
 @media screen and (min-width: 768px) {
