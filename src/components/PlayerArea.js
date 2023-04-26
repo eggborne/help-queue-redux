@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import PlayerListing from "./PlayerListing";
 import NewPlayerModal from "./NewPlayerModal";
 
 function PlayerArea(props){
@@ -26,17 +27,12 @@ function PlayerArea(props){
       />
       
       <div style={playerAreaStyle}>
-          <div className='player-list'>
-            {props.playerList.map(player =>
-              <div key={player.id} className={`player-listing${props.activePlayer === player.playerNumber ? ' active' : ''}`}>
-                <div className='player-name'>{player.name}</div>
-                <div>Player {player.playerNumber}</div>
-                <div className='id-tag'>{player.id}</div>
-                {!props.gameStarted && <div onClick={() => props.onClickDeletePlayer(player.id)} className='close-button'>X</div>}
-              </div>
-            )}
-          </div>
-          {!props.gameStarted && <button onClick={() => setNewPlayerFormShowing(true)}>Add a new player</button>}
+        <div className='player-list'>
+          {props.playerList.map(player =>
+            <PlayerListing activePlayer={props.activePlayer} key={player.id} player={player} gameStarted={props.gameStarted} />
+          )}
+        </div>
+        {!props.gameStarted && <button onClick={() => setNewPlayerFormShowing(true)}>Add a new player</button>}
       </div>
     </>
   );
@@ -47,7 +43,7 @@ PlayerArea.propTypes = {
   playerList: PropTypes.array,
   handleAddPlayerFormSubmit: PropTypes.func,
   onClickDeletePlayer: PropTypes.func,
-  activePlayer: PropTypes.number,
+  activePlayer: PropTypes.func,
 };
 
 export default PlayerArea;

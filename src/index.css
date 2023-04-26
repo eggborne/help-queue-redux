@@ -192,6 +192,14 @@ form.player-form input {
   justify-content: center;
 }
 
+.guessed-letter:not(.guessed) {
+  cursor: pointer;
+}
+
+.guessed-letter:not(.guessed):hover {
+  color: rgb(125, 255, 125);
+}
+
 .guessed-letter::after {
   content: '';
   position: absolute;

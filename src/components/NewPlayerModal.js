@@ -33,6 +33,7 @@ function NewPlayerModal(props) {
     const newPlayer = {
       name: event.target.name.value || defaultNames[randomInt(0, defaultNames.length - 1)],
       playerNumber: props.nextPlayerNumber,
+      score: 0,
       id: v4(),
     };
     props.onAddPlayerFormSubmit(newPlayer);

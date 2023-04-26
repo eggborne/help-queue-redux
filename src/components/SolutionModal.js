@@ -32,19 +32,41 @@ function SolutionModal(props) {
     props.onSubmitSolution(solutionGuess);
     // props.onClickCancel();
     event.target['solution-guess'].value = '';
+    
   }
+//
+// has access to props.currentSolutionGuess, props.currentSolutionCorrect
+//
+//
+
 
   return (
     <>
       <ScreenVeil showing={props.showing} />
       <div style={solutionModalStyle} className={`modal${props.showing ? ' showing' : ''}`} >
-        <h2>Correct? {props.currentSolutionCorrect ? 'true' : 'false'}</h2>
-        <h1>Solve puzzle</h1>
-        <form onSubmit={handleSubmitSolution} className='solution-form'>
-          <input style={{textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold'}} type='text' name='solution-guess' />
-          <button type='submit' className='green'>Submit!</button>
-        </form>
-        <button onClick={props.onClickCancel} type='submit'>Cancel</button>
+        {props.currentSolutionGuess === '' ? 
+          <>
+          <h1>Solve puzzle</h1>
+          <h1>{props.currentSolutionGuess}</h1>
+          <form onSubmit={handleSubmitSolution} className='solution-form'>
+            <input style={{textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold'}} type='text' name='solution-guess' />
+            <button type='submit' className='green'>Submit!</button>
+          </form>
+          </> 
+          : 
+          (props.currentSolutionCorrect ? <h1>Correct!</h1> : <h1>Incorrect</h1>)
+        }
+
+
+        {props.currentSolutionGuess === '' ?
+          <button onClick={props.onClickCancel}>Cancel</button>
+          :
+          (props.currentSolutionCorrect ?
+            <button onClick={props.onClickCancel}>Start New Game</button> 
+            :
+            <button onClick={props.onClickCancel}>Sorry, you guessed wrong</button>
+          )
+        }
       </div>
     </>
   );
@@ -55,6 +77,7 @@ SolutionModal.propTypes = {
   onClickCancel: PropTypes.func,
   showing: PropTypes.bool,
   currentSolutionCorrect: PropTypes.bool,
+  currentSolutionGuess: PropTypes.string
 }
 
 export default SolutionModal;

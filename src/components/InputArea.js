@@ -39,10 +39,13 @@ function InputArea(props){
 
   function handleCallSolutionModal(show = true) {
     setSolutionModalShowing(show);
-  }
-
-  function handleCallGuessResultModal(show = true) {
-    setGuessResultModalShowing(show);
+    if (!show) {
+      if (props.currentSolutionCorrect) {
+        props.resetPuzzleWord();
+      } else {
+        props.advanceTurn();
+      }
+    }
   }
 
   function handleClickListLetter(letter) {
@@ -88,6 +91,7 @@ function InputArea(props){
           showing={solutionModalShowing}
           onSubmitSolution={props.handleSubmitSolution}
           onClickCancel={() => handleCallSolutionModal(false)}
+          currentSolutionGuess={props.currentSolutionGuess}
           currentSolutionCorrect={props.currentSolutionCorrect}
         />
       </div>
@@ -103,6 +107,8 @@ InputArea.propTypes = {
   guessedLetters: PropTypes.arrayOf(PropTypes.string),
   handleSubmitSolution: PropTypes.func,
   currentSolutionCorrect: PropTypes.bool,
+  advanceTurn: PropTypes.func,
+  resetPuzzleWord: PropTypes.func,
 };
 
 export default InputArea;
