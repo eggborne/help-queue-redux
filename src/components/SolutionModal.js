@@ -1,4 +1,5 @@
 import React from "react";
+import ScreenVeil from './ScreenVeil';
 import PropTypes from "prop-types";
 
 function SolutionModal(props) {
@@ -24,21 +25,36 @@ function SolutionModal(props) {
     transition: 'all 200ms ease',
   }
 
+  function handleSubmitSolution(event) {
+    event.preventDefault();
+    const solutionGuess = event.target['solution-guess'].value;
+    console.log('solutionGuess', solutionGuess);
+    props.onSubmitSolution(solutionGuess);
+    // props.onClickCancel();
+    event.target['solution-guess'].value = '';
+  }
+
   return (
-    <div style={solutionModalStyle} className={`modal${props.showing ? ' showing' : ''}`} >
-      <h1>Solve puzzle</h1>
-      <form className='solution-form'>
-        <input type='text' name='solution-guess' />
-        <button type='submit' className='green'>Submit!</button>
-      </form>
-      <button onClick={props.onClickCancel} type='submit'>Cancel</button>
-    </div>
+    <>
+      <ScreenVeil showing={props.showing} />
+      <div style={solutionModalStyle} className={`modal${props.showing ? ' showing' : ''}`} >
+        <h2>Correct? {props.currentSolutionCorrect ? 'true' : 'false'}</h2>
+        <h1>Solve puzzle</h1>
+        <form onSubmit={handleSubmitSolution} className='solution-form'>
+          <input style={{textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold'}} type='text' name='solution-guess' />
+          <button type='submit' className='green'>Submit!</button>
+        </form>
+        <button onClick={props.onClickCancel} type='submit'>Cancel</button>
+      </div>
+    </>
   );
 }
 
 SolutionModal.propTypes = {
+  onSubmitSolution: PropTypes.func,
   onClickCancel: PropTypes.func,
   showing: PropTypes.bool,
+  currentSolutionCorrect: PropTypes.bool,
 }
 
 export default SolutionModal;

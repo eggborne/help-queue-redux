@@ -14,14 +14,15 @@ function Header(props) {
   return (
     <React.Fragment>
       <header style={headerStyle}>
-        <h1><span style={{textDecoration: 'line-through'}}>Redux</span> Word Game</h1>
-        <button onClick={props.onClickStartGame} className='green'>Start Game</button>
+        <h1>React Word Game</h1>
+        {!props.gameStarted && <button onClick={props.onClickStartGame} className='green'>Start Game</button>}
       </header>
     </React.Fragment>
   );
 }
 
 Header.propTypes = {
+  gameStarted: PropTypes.bool,
   onClickStartGame: PropTypes.func,
 }
 

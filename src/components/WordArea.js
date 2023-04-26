@@ -17,11 +17,14 @@ function WordArea(props){
     <React.Fragment>
       <div style={wordAreaStyle}>
         {props.gameStarted ?
-          <div className='puzzle-letter-area'>
-            {lettersArray.map((letter, l) =>
-              <div key={l} className='puzzle-letter'>{letter}</div>
-            )}
-          </div>
+          <>
+            <div className='puzzle-letter-area'>
+              {lettersArray.map((letter, l) =>
+                <div key={l} className={'puzzle-letter'}>{props.guessedLetters.includes(letter) ? letter : '_'}</div>
+              )}
+            </div>
+            
+          </>   
         :
         <div>game not started yet!</div>
         }

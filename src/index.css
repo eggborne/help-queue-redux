@@ -110,7 +110,12 @@ form.player-form input {
   padding: 0.5rem;
   border: 0.1rem solid #00000033;
   border-radius: 0.5rem;
+  min-width: 10rem;
   max-width: calc(var(--main-width) / 3.5);
+}
+
+.player-listing.active {
+  outline: 0.25rem solid green;
 }
 
 .player-name {
@@ -211,6 +216,7 @@ form.player-form input {
 
 .modal {
   z-index: 1;
+  box-shadow: 0 0 1rem 0.5rem rgba(0, 0, 0, 0.236);
 }
 
 .modal.showing {

@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 function InputArea(props){
   
   const [solutionModalShowing, setSolutionModalShowing] = useState(false);
+  const [guessResultModalShowing, setGuessResultModalShowing] = useState(false);
   
   const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
@@ -17,8 +18,10 @@ function InputArea(props){
     justifyContent: 'space-between',
     gap: '1rem',
     padding: '1rem',
-    border: '0.25rem solid black',
     backgroundColor: '#00440033',
+    opacity: props.gameStarted ? '1' : '0',
+    pointerEvents: props.gameStarted ? 'all' : 'none',
+    transition: 'all 200ms ease',
   };
 
   function handleFormSubmit(event) {
@@ -31,25 +34,42 @@ function InputArea(props){
       props.onSubmitLetterGuess(letterGuess);
     }
     event.target['letter-guess'].value = null;
+   
   }
 
   function handleCallSolutionModal(show = true) {
     setSolutionModalShowing(show);
   }
 
+  function handleCallGuessResultModal(show = true) {
+    setGuessResultModalShowing(show);
+  }
+
+  function handleClickListLetter(letter) {
+    document.getElementById('letter-guess-input').value = letter;
+  }
+
   return (
-    <React.Fragment>
+    <div style={{border: '0.25rem solid black'}}>
       <div style={inputAreaStyle}>
+        <h2 style={{color: 'lightgreen'}}>{props.activePlayerName}'s turn</h2>
         <div className='guessed-letter-area'>
           <div className='guessed-letter-list'>
             {alphabet.map((letter, l) => 
-              <div key={l} className={`guessed-letter${props.guessedLetters.includes(letter) ? ' guessed' : ''}`}>{letter}</div>
+              <div 
+                key={l} 
+                className={`guessed-letter${props.guessedLetters.includes(letter) ? ' guessed' : ''}`}
+                onClick={!props.guessedLetters.includes(letter) ? () => handleClickListLetter(letter) : null}
+              >
+                {letter}
+              </div>
             )}
           </div>
           <div className='letter-guess-area'>
             <form onSubmit={handleFormSubmit}>
               <label for='letter-guess'>Guess a letter:</label>
               <input 
+                id='letter-guess-input'
                 pattern="[A-Za-z]{1}"
                 title="You must guess a LETTER (A-Z)"
                 type='text' 
@@ -64,17 +84,25 @@ function InputArea(props){
         <div className='solution-guess-area'>
           <button className='green' onClick={() => handleCallSolutionModal()}>Solve puzzle</button>
         </div>
-        <SolutionModal showing={solutionModalShowing} onClickCancel={() => handleCallSolutionModal(false)}/>
+        <SolutionModal 
+          showing={solutionModalShowing}
+          onSubmitSolution={props.handleSubmitSolution}
+          onClickCancel={() => handleCallSolutionModal(false)}
+          currentSolutionCorrect={props.currentSolutionCorrect}
+        />
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 
 InputArea.propTypes = {
-  // activePlayer: PropTypes.object,
+  gameStarted: PropTypes.bool,
+  activePlayerName: PropTypes.string,
   onSubmitLetterGuess: PropTypes.func,
   currentLetterGuess: PropTypes.string,
   guessedLetters: PropTypes.arrayOf(PropTypes.string),
+  handleSubmitSolution: PropTypes.func,
+  currentSolutionCorrect: PropTypes.bool,
 };
 
 export default InputArea;
