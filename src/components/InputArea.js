@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SolutionModal from "./SolutionModal";
 import PropTypes from "prop-types";
+import { pause } from '../util';
 
 
 function InputArea(props){
@@ -37,9 +38,10 @@ function InputArea(props){
    
   }
 
-  function handleCallSolutionModal(show = true) {
+  async function handleCallSolutionModal(show = true) {
     setSolutionModalShowing(show);
     if (!show) {
+      await pause(200);
       if (props.currentSolutionCorrect) {
         props.resetPuzzleWord();
       } else {

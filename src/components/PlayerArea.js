@@ -47,4 +47,3 @@ PlayerArea.propTypes = {
 };
 
 export default PlayerArea;
-

@@ -5,7 +5,7 @@ import InputArea from "./InputArea";
 import PlayerArea from "./PlayerArea";
 import { v4 } from 'uuid';
 import axios from 'axios';
-import { randomInt } from '../util';
+import { randomInt, pause } from '../util';
 
 function WordGameControl(props) {
 
@@ -79,7 +79,7 @@ function WordGameControl(props) {
       setPlayerList(newPlayerList);
     }
     const firstPuzzleWord = await getRandomWord(randomInt(5,9), 1);
-    console.warn('FIRST PUZZLE WORD: ------', firstPuzzleWord);
+    console.warn('FIRST PUZZLE WORD: ------', firstPuzzleWord)
     setCurrentPuzzleWord(firstPuzzleWord);
     setGameStarted(true);
   }
@@ -92,16 +92,17 @@ function WordGameControl(props) {
 
   async function resetPuzzleWord() {
     const winningPlayer = playerList.filter(player => player.playerNumber === activePlayer)[0];
-    winningPlayer.score += currentPuzzleWord.length;
+    const scoreForWord = currentPuzzleWord.length * 6;
+    console.warn('SCORE FOR', currentPuzzleWord, scoreForWord)
+    winningPlayer.score += scoreForWord;
+    renderActivePlayerScore();
     setGuessedLetters([]);
     setCurrentSolutionGuess('');
     setCurrentSolutionCorrect(false);
     let newPuzzleWord = await getRandomWord(randomInt(5,9), 1);
     console.warn('NEW PUZZLE WORD: ------', newPuzzleWord)
     setCurrentPuzzleWord(newPuzzleWord)
-    // setCurrentPuzzleWord(puzzleWords[puzzleWords.indexOf(currentPuzzleWord) + 1]);
-    setActivePlayer(1);
-    
+    setActivePlayer(winningPlayer.playerNumber);
   }
 
 
@@ -109,6 +110,21 @@ function WordGameControl(props) {
     console.log('handleSubmitSolution in WordGameControl received currentSolutionGuess: ' + currentSolutionGuess)
     setCurrentSolutionGuess(currentSolutionGuess);
     setCurrentSolutionCorrect(currentPuzzleWord.toLowerCase() === currentSolutionGuess.toLowerCase());
+  }
+
+  function renderActivePlayerScore() {
+    console.log('renderactivePlayerScore activePlayer', activePlayer)
+    console.log('renderactivePlayerScore playerList', playerList)
+    const currentActivePlayer = playerList.filter(player => player.playerNumber === activePlayer)[0];
+    let scoreString = currentActivePlayer.score.toString();
+    let leadingZeros = 3 - scoreString.length;
+    scoreString = '0'.repeat(leadingZeros) + scoreString;
+    console.log('scoreString is', scoreString);
+    [...document.querySelectorAll(`.score-number.player-${currentActivePlayer.playerNumber}`)].forEach((numeral, n) => {
+      let scoreNumeral = scoreString[n];
+      console.log('attempting to print scoreNumeral', scoreNumeral)
+      numeral.style.backgroundPositionY = `calc(2rem * -${scoreNumeral})`;
+    });
   }
 
   return (

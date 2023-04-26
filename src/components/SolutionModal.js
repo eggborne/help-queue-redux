@@ -25,6 +25,14 @@ function SolutionModal(props) {
     transition: 'all 200ms ease',
   }
 
+  const guessResultMessageStyle = {
+    flexGrow: '1',
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '3rem',
+    fontWeight: 'bold',
+  }
+
   function handleSubmitSolution(event) {
     event.preventDefault();
     const solutionGuess = event.target['solution-guess'].value;
@@ -43,18 +51,30 @@ function SolutionModal(props) {
   return (
     <>
       <ScreenVeil showing={props.showing} />
-      <div style={solutionModalStyle} className={`modal${props.showing ? ' showing' : ''}`} >
+      <div id='solution-modal' style={solutionModalStyle} className={`modal${props.showing ? ' showing' : ''}`} >
         {props.currentSolutionGuess === '' ? 
           <>
           <h1>Solve puzzle</h1>
           <h1>{props.currentSolutionGuess}</h1>
           <form onSubmit={handleSubmitSolution} className='solution-form'>
-            <input style={{textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold'}} type='text' name='solution-guess' />
+            <input 
+              name='solution-guess'
+              style={{textAlign: 'center', textTransform: 'uppercase', 
+              fontWeight: 'bold'}} 
+              type='text' 
+              autoFocus // why no work?
+            />
             <button type='submit' className='green'>Submit!</button>
           </form>
           </> 
           : 
-          (props.currentSolutionCorrect ? <h1>Correct!</h1> : <h1>Incorrect</h1>)
+          <div style={guessResultMessageStyle}>
+            {props.currentSolutionCorrect ? 
+              <div>Correct!</div> 
+              : 
+              <div>Incorrect</div>
+            }
+          </div>
         }
 
 
@@ -62,7 +82,21 @@ function SolutionModal(props) {
           <button onClick={props.onClickCancel}>Cancel</button>
           :
           (props.currentSolutionCorrect ?
-            <button onClick={props.onClickCancel}>Start New Game</button> 
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              props.onClickCancel();
+            }}>
+              <input style={{
+                  position: 'fixed',
+                  bottom: '-100%',
+                }} 
+                type='text' 
+                autoFocus 
+              />
+              <button type='submit'>
+                Start New Game
+              </button> 
+            </form>
             :
             <button onClick={props.onClickCancel}>Sorry, you guessed wrong</button>
           )

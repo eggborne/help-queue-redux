@@ -233,6 +233,37 @@ form.player-form input {
   scale: 1 !important;
 }
 
+.numeral-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.score-number {
+  background-image: url(../public/rednumbers.png);
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position-x: center;
+  background-position-y: 0;
+  height: 2rem;
+  width: 1rem;
+  transition: background-position-y 500ms ease-out;
+}
+
+.score-number.black {
+  filter: brightness(0);
+}
+.score-number.white {
+  filter: brightness(0) invert(1) 
+  drop-shadow(2px 0px 0px black)
+  drop-shadow(0px 2px 0px black)
+  drop-shadow(-1px 0px 0px black)
+  drop-shadow(0px -1px 0px black)
+  ;
+}
+
 @media screen and (min-width: 768px) {
   :root {
     --main-width: 60vw;

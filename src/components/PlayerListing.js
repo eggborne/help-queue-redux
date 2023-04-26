@@ -7,6 +7,11 @@ function PlayerListing(props) {
       <div className='player-name'>{props.player.name}</div>
       <div>Player {props.player.playerNumber}</div>
       <div>Score: {props.player.score}</div>
+      <div className='numeral-area'>
+        <div className={`score-number white player-${props.player.playerNumber}`}></div>
+        <div className={`score-number white player-${props.player.playerNumber}`}></div>
+        <div className={`score-number white player-${props.player.playerNumber}`}></div>
+      </div>
       <div className='id-tag'>{props.player.id}</div>
       {!props.gameStarted && <div onClick={() => props.onClickDeletePlayer(props.player.id)} className='close-button'>X</div>}
     </div>
